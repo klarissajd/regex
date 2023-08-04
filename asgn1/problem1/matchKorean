@@ -1,0 +1,37 @@
+BEGIN {
+    correct_match = 0;
+    false_positive = 0;
+    false_negative = 0;
+    correct_non_match = 0;
+
+}
+
+    tolower($0) ~ /^((g|kk|n|d|tt|r|m|b|pp|s|ss|j|jj|ch|tch|k|t|p|h)?(a|ae|ya|yae|eo|e|yeo|ye|o|wa|wae|oe|yo|u|wo|we|wi|yu|eu|ui|i|oo|ah)(k|n|t|l|m|p|ng)? (g|kk|n|d|tt|r|m|b|pp|s|ss|j|jj|ch|tch|k|t|p|h)?(a|ae|ya|yae|eo|e|yeo|ye|o|wa|wae|oe|yo|u|wo|we|wi|yu|eu|ui|i|oo|ah)(k|n|t|l|m|p|ng)?-?(g|kk|n|d|tt|r|m|b|pp|s|ss|j|jj|ch|tch|k|t|p|h)?(a|ae|ya|yae|eo|e|yeo|ye|o|wa|wae|oe|yo|u|wo|we|wi|yu|eu|ui|i|oo|ah)(k|n|t|l|m|p|ng)?).*/ {
+        if (tolower($NF) ~ /korean$/) {
+            correct_match = correct_match + 1;
+        } else {
+            false_positive++;
+
+        }
+    }
+
+    tolower($0) !~ /^((g|kk|n|d|tt|r|m|b|pp|s|ss|j|jj|ch|tch|k|t|p|h)?(a|ae|ya|yae|eo|e|yeo|ye|o|wa|wae|oe|yo|u|wo|we|wi|yu|eu|ui|i|oo|ah)(k|n|t|l|m|p|ng)? (g|kk|n|d|tt|r|m|b|pp|s|ss|j|jj|ch|tch|k|t|p|h)?(a|ae|ya|yae|eo|e|yeo|ye|o|wa|wae|oe|yo|u|wo|we|wi|yu|eu|ui|i|oo|ah)(k|n|t|l|m|p|ng)?-?(g|kk|n|d|tt|r|m|b|pp|s|ss|j|jj|ch|tch|k|t|p|h)?(a|ae|ya|yae|eo|e|yeo|ye|o|wa|wae|oe|yo|u|wo|we|wi|yu|eu|ui|i|oo|ah)(k|n|t|l|m|p|ng)?).*/ {
+        if (tolower($NF) ~ /korean$/) {
+            false_negative++;
+        } else {
+            correct_non_match++;
+
+        }
+    }
+
+
+
+END {
+    print("Correct Match: ", correct_match);
+    print("False Positive: ", false_positive);
+    print("False Negative: ", false_negative);
+    print("Correct Non-Match: ", correct_non_match)
+
+}
+
+
